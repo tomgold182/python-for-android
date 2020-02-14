@@ -502,6 +502,9 @@ main.py that loads it.''')
 
     # Render out android manifest:
     manifest_path = "src/main/AndroidManifest.xml"
+    if args.fileprovider_paths:
+        shutil.copy(args.fileprovider_paths, join(res_dir, "xml/file_paths.xml"))
+
     render_args = {
         "args": args,
         "service": service,
@@ -683,7 +686,8 @@ tools directory of the Android SDK.
                               'https://developer.android.com/guide/'
                               'topics/manifest/'
                               'activity-element.html'))
-
+    ap.add_argument('--fileprovider-paths', dest='fileprovider_paths',
+                    help=('Add fileprovider paths xml file'))
     ap.add_argument('--android-entrypoint', dest='android_entrypoint',
                     default='org.kivy.android.PythonActivity',
                     help='Defines which java class will be used for startup, usually a subclass of PythonActivity')
